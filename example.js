@@ -1,15 +1,22 @@
 const axios = require('axios');
 
 exports.handler = async (context, event, callback) => {
-    
+
+    /*
+    Pulling the parameters that are defined in our flow.
+
+    Reference Twilio's documentation on this for more information: 
+    https://www.twilio.com/docs/serverless/functions-assets/quickstart/run-function-studio-widget#install-dependencies-and-define-the-function-body
+    */
     let messageBody = event.messageBody;
     let messageTo = event.messageTo;
     let messageFrom = event.messageFrom;
     let messageSID = event.messageSID;
-  
-    const FRONT_INBOX_ID = 'FRONT_INBOX_API_ID'
-    const FRONT_API_ENDPOINT = `https://api2.frontapp.com/inboxes/${FRONT_INBOX_ID}/imported_messages`;
-    const FRONT_API_KEY = 'FRONT_API_KEY';
+
+    //Define Front varibles
+    const FRONT_INBOX_ID = 'FRONT_INBOX_API_ID' //Should be set to the Inbox ID where the Twilio number is connected
+    const FRONT_API_ENDPOINT = `https://api2.frontapp.com/inboxes/${FRONT_INBOX_ID}/imported_messages`; //https://dev.frontapp.com/reference/import-inbox-message
+    const FRONT_API_KEY = 'FRONT_API_KEY'; //Ensure you give this API Key the required scopes on the Front side so it can access the correct inbox.
 
     const requestData = {
             sender: {
